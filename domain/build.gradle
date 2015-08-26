@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility =  JavaVersion.VERSION_1_8
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // RxJava
+    compile 'io.reactivex:rxjava:1.0.10'
+
+    // JodaTime (Date Time)
+    compile 'joda-time:joda-time:2.8.2'
+
+    // DI annotation
+    compile 'javax.inject:javax.inject:1'
+}
