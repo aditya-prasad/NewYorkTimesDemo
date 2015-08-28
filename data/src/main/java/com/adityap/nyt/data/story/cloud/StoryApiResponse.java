@@ -1,6 +1,5 @@
 package com.adityap.nyt.data.story.cloud;
 
-import com.adityap.nyt.domain.model.story.Section;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -42,13 +41,16 @@ public class StoryApiResponse
         return models;
     }
 
-    private static class Story
+    static class Story
     {
         @SerializedName("section")
         String section;
 
         @SerializedName("title")
         String title;
+
+        @SerializedName("byline")
+        String author;
 
         @SerializedName("abstract")
         String summary;
@@ -67,6 +69,7 @@ public class StoryApiResponse
             com.adityap.nyt.domain.model.story.Story model = new com.adityap.nyt.domain.model.story.Story();
             model.setSection(SectionMapper.getCode(section));
             model.setTitle(title);
+            model.setAuthor(author);
             model.setSummary(summary);
             model.setUrl(url);
             model.setPublishTime(publishTime);
@@ -77,12 +80,18 @@ public class StoryApiResponse
                 {
                     model.setThumbnailUrl(image.url);
                 }
-                else if (image.format.equalsIgnoreCase("Normal"))
+                else if (image.format.equalsIgnoreCase("mediumThreeByTwo210"))
                 {
                     model.setImageUrl(image.url);
                     model.setImageCaption(image.caption);
                 }
             }
+
+            if (model.getThumbnailUrl() == null)
+            {
+                model.setThumbnailUrl(model.getImageUrl());
+            }
+
             return model;
         }
 

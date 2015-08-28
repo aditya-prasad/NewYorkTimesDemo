@@ -19,6 +19,7 @@ public class FetchStoriesUseCase implements UseCase<List<Story>>
     public FetchStoriesUseCase(StoryService storyService)
     {
         this.storyService = storyService;
+        System.out.println("[DOMAIN LAYER] FetchStoriesUseCase created");
     }
 
     public void setSection(int section)

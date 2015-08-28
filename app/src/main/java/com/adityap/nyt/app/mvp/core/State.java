@@ -1,5 +1,5 @@
 package com.adityap.nyt.app.mvp.core;
 
-public interface PresentationModel
+public interface State<V extends View>
 {
 }

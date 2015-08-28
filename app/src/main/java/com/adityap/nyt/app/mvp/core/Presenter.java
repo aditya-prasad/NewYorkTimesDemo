@@ -7,4 +7,6 @@ public interface Presenter<V extends View>
     void detachView();
 
     boolean isViewAttached();
+
+    void destroy();
 }

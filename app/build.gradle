@@ -36,8 +36,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile project(':domain')
     compile project(':data')
 
@@ -57,4 +55,14 @@ dependencies {
 
     // Timber (Logging)
     compile 'com.jakewharton.timber:timber:3.1.0'
+
+    // Butterknife (View Binding)
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    // Picasso (Image Loading)
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // JodaTime (Date Time)
+    compile 'joda-time:joda-time:2.8.2'
+    compile 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.1.0'
 }

@@ -3,16 +3,15 @@ package com.adityap.nyt.app.internal.di.component;
 import android.content.Context;
 
 import com.adityap.nyt.app.App;
-import com.adityap.nyt.app.internal.di.module.ApiModule;
 import com.adityap.nyt.app.internal.di.module.AppModule;
-import com.adityap.nyt.app.internal.di.module.CacheModule;
-import com.adityap.nyt.app.internal.di.module.DatabaseModule;
 import com.adityap.nyt.app.internal.di.module.DomainModule;
-import com.adityap.nyt.app.internal.di.module.NetworkModule;
+import com.adityap.nyt.app.internal.di.module.MvpModule;
+import com.adityap.nyt.app.internal.di.module.StoryModule;
 import com.adityap.nyt.app.internal.di.module.UtilModule;
 import com.adityap.nyt.app.internal.di.qualifier.PrettyGson;
 import com.adityap.nyt.app.internal.di.scope.ApplicationScope;
-import com.adityap.nyt.data.internal.sqlite.SQLiteManager;
+import com.adityap.nyt.app.ui.flow.main.stories.di.StoryListComponent;
+import com.adityap.nyt.app.ui.flow.main.stories.di.StoryListModule;
 import com.google.gson.Gson;
 
 import dagger.Component;
@@ -22,6 +21,7 @@ import dagger.Component;
         modules = {
                 AppModule.class,
                 UtilModule.class,
+                MvpModule.class,
                 DomainModule.class
         })
 public interface AppComponent
@@ -34,4 +34,8 @@ public interface AppComponent
 
     @PrettyGson
     Gson prettyGson();
+
+    StoryComponent plus(StoryModule module);
+
+    StoryListComponent plus(StoryListModule module);
 }

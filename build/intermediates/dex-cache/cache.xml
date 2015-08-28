@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/aditya/codeX/workspace/android/NewYorkTimesDemo/app/build/intermediates/exploded-aar/NewYorkTimesDemo/data/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="906029ad0265ff73bd0f33a0581bb6863e201292">
+        <dex dex="/Users/aditya/codeX/workspace/android/NewYorkTimesDemo/app/build/intermediates/pre-dexed/debug/classes-2cb8e638f7101a5d88d945bcb633d41ca030dfbc.jar" />
+    </item>
+
+</items>

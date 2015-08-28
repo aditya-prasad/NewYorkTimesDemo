@@ -1,7 +1,9 @@
 package com.adityap.nyt.app.internal.di.module;
 
+import com.adityap.nyt.app.internal.di.qualifier.NytGson;
 import com.adityap.nyt.app.internal.di.qualifier.PrettyGson;
 import com.adityap.nyt.app.internal.di.scope.ApplicationScope;
+import com.fatboyindustrial.gsonjodatime.Converters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,7 +17,7 @@ public class UtilModule
     @ApplicationScope
     public Gson provideGson()
     {
-        GsonBuilder gsonBuilder = new GsonBuilder();
+        GsonBuilder gsonBuilder = Converters.registerAll(new GsonBuilder());
         return gsonBuilder.create();
     }
 
@@ -24,8 +26,16 @@ public class UtilModule
     @PrettyGson
     public Gson providePrettyGson()
     {
-        GsonBuilder gsonBuilder = new GsonBuilder()
-                .setPrettyPrinting();
+        GsonBuilder gsonBuilder = Converters.registerAll(new GsonBuilder())
+                                            .setPrettyPrinting();
         return gsonBuilder.create();
+    }
+
+    @Provides
+    @ApplicationScope
+    @NytGson
+    public Gson provideNytGson()
+    {
+        return com.adityap.nyt.data.story.cloud.NytGson.get();
     }
 }

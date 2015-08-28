@@ -1,6 +1,7 @@
 package com.adityap.nyt.app.internal.di.module;
 
 import com.adityap.nyt.app.config.NewYorkTimesApiConstants;
+import com.adityap.nyt.app.internal.di.qualifier.NytGson;
 import com.adityap.nyt.app.internal.di.scope.ApplicationScope;
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
@@ -23,7 +24,7 @@ public class NetworkModule
 
     @Provides
     @ApplicationScope
-    public RestAdapter provideRestAdapter(OkHttpClient okHttpClient, Gson gson)
+    public RestAdapter provideRestAdapter(OkHttpClient okHttpClient, @NytGson Gson gson)
     {
         return new RestAdapter.Builder()
                 .setClient(new OkClient(okHttpClient))
@@ -31,6 +32,7 @@ public class NetworkModule
                 .setEndpoint(NewYorkTimesApiConstants.API_ENDPOINT)
                 .setRequestInterceptor(request ->
                         request.addQueryParam("api-key", NewYorkTimesApiConstants.API_KEY))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
     }
 }

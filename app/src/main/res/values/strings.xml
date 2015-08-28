@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewYorkTimesDemo</string>
+
+    <string name="message_no_stories">Sorry. No stories for you.</string>
+    <string name="message_error">Sorry. Looks like we messed up.</string>
+    <string name="message_read_full_story">Read Full Article</string>
 </resources>

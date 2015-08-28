@@ -6,6 +6,7 @@ public class Story
 {
     private int section;
     private String title;
+    private String author;
     private String summary;
     private String url;
     private DateTime publishTime;
@@ -31,6 +32,16 @@ public class Story
     public void setTitle(String title)
     {
         this.title = title;
+    }
+
+    public String getAuthor()
+    {
+        return author;
+    }
+
+    public void setAuthor(String author)
+    {
+        this.author = author;
     }
 
     public String getSummary()
@@ -107,21 +118,19 @@ public class Story
 
         Story story = (Story) o;
 
-        if (title.equals(story.title) && publishTime.equals(story.publishTime))
-        {
-            return true;
-        }
-        else
+        if (!title.equals(story.title))
         {
             return false;
         }
+        return author.equals(story.author);
+
     }
 
     @Override
     public int hashCode()
     {
         int result = title.hashCode();
-        result = 31 * result + publishTime.hashCode();
+        result = 31 * result + author.hashCode();
         return result;
     }
 }

@@ -18,6 +18,8 @@ public class App extends Application
 
         initLogging();
         Timber.i("Application Started");
+
+        initDagger();
     }
 
     private void initLogging()

@@ -23,8 +23,8 @@ public class CacheModule
 
     @Provides
     @ApplicationScope
-    public StoryCache provideStoryCache()
+    public StoryCache provideStoryCache(SQLiteManager databaseManager, Gson gson)
     {
-        return new SQLiteStoryCache();
+        return new SQLiteStoryCache(databaseManager, gson);
     }
 }

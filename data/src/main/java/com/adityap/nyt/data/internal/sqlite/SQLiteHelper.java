@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import timber.log.Timber;
 
 public class SQLiteHelper extends SQLiteOpenHelper
@@ -14,7 +11,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
     public SQLiteHelper(Context context)
     {
         super(context, SQLiteContract.DATABASE_NAME, null, SQLiteContract.DATABASE_VERSION);
-        Timber.v("SQLiteHelper initialized");
+        Timber.v("SQLiteHelper Initialized");
     }
 
     @Override
@@ -22,7 +19,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
     {
         db.execSQL(SQLiteContract.Storage.SQL_CREATE_TABLE);
         db.execSQL(SQLiteContract.Stories.SQL_CREATE_TABLE);
-        Timber.d("Database created");
+        Timber.d("Database Created");
     }
 
     @Override
@@ -31,6 +28,6 @@ public class SQLiteHelper extends SQLiteOpenHelper
         db.execSQL(SQLiteContract.Storage.SQL_DROP_TABLE);
         db.execSQL(SQLiteContract.Stories.SQL_DROP_TABLE);
         onCreate(db);
-        Timber.d("Database updated");
+        Timber.d("Database Updated");
     }
 }

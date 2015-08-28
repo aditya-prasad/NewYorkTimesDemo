@@ -12,6 +12,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class StoryServiceImpl implements StoryService
 {
@@ -21,6 +22,7 @@ public class StoryServiceImpl implements StoryService
 
     public StoryServiceImpl(StoryApi api, StoryCache cache, Storage storage)
     {
+        Timber.v("StoryService init");
         this.api = api;
         this.cache = cache;
         this.storage = storage;
@@ -33,20 +35,26 @@ public class StoryServiceImpl implements StoryService
                     .flatMap(cachedStories -> {
                         if (cachedStories.isEmpty())
                         {
-                            String sectionName = SectionMapper.getString(section);
-                            return api.getStories(sectionName)
-                                      .map(response -> {
-                                          storage.put(StorageKeys.COPYRIGHT_MESSAGE, response
-                                                  .getCopyrightMessage());
-                                          return response.getStories();
-                                      })
-                                      .doOnNext(stories1 -> cache.put(section, stories1))
-                                      .subscribeOn(Schedulers.newThread());
+                            return refreshStories(section);
                         }
                         else
                         {
                             return Observable.just(cachedStories);
                         }
                     });
+    }
+
+    @Override
+    public Observable<List<Story>> refreshStories(int section)
+    {
+        String sectionName = SectionMapper.getString(section);
+        return api.getStories(sectionName)
+                  .map(response -> {
+                      storage.put(StorageKeys.COPYRIGHT_MESSAGE, response
+                              .getCopyrightMessage());
+                      return response.getStories();
+                  })
+                  .doOnNext(stories1 -> cache.put(section, stories1))
+                  .subscribeOn(Schedulers.newThread());
     }
 }

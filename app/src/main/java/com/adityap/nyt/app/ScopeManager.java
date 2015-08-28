@@ -1,10 +1,13 @@
 package com.adityap.nyt.app;
 
 import com.adityap.nyt.app.internal.di.component.AppComponent;
-import com.adityap.nyt.app.internal.di.component.DaggerStoryComponent;
 import com.adityap.nyt.app.internal.di.component.StoryComponent;
 import com.adityap.nyt.app.internal.di.module.StoryModule;
 import com.adityap.nyt.domain.model.story.Story;
+
+import java.util.List;
+
+import timber.log.Timber;
 
 public class ScopeManager
 {
@@ -30,19 +33,21 @@ public class ScopeManager
     public static void initialize(AppComponent appComponent)
     {
         instance = new ScopeManager(appComponent);
+        Timber.v("ScopeManager initialized");
     }
 
-    public void startStoryScope(Story story)
+    public void startStoryScope(List<Story> stories, int initialPosition)
     {
-        storyComponent = DaggerStoryComponent.builder()
-                .appComponent(appComponent)
-                .storyModule(new StoryModule(story))
-                .build();
+        storyComponent = appComponent.plus(new StoryModule(stories, initialPosition));
+
+        Timber.v("StoryScope started");
     }
 
     public void endStoryScope()
     {
         storyComponent = null;
+
+        Timber.v("StoryScope ended");
     }
 
     public AppComponent appComponent()

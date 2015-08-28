@@ -2,13 +2,14 @@ package com.adityap.nyt.app.internal.di.component;
 
 import com.adityap.nyt.app.internal.di.module.StoryModule;
 import com.adityap.nyt.app.internal.di.scope.StoryScope;
-import com.adityap.nyt.domain.model.story.Story;
+import com.adityap.nyt.app.ui.flow.main.details.di.StoryDetailsComponent;
+import com.adityap.nyt.app.ui.flow.main.details.di.StoryDetailsModule;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 @StoryScope
-@Component(modules = StoryModule.class, dependencies = AppComponent.class)
+@Subcomponent(modules = StoryModule.class)
 public interface StoryComponent
 {
-    Story activeStory();
+    StoryDetailsComponent plus(StoryDetailsModule module);
 }
