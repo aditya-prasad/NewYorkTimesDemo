@@ -7,7 +7,6 @@ import com.adityap.nyt.domain.model.story.Section;
 import com.adityap.nyt.domain.model.story.Story;
 import com.adityap.nyt.domain.usecase.FetchStoriesUseCase;
 import com.adityap.nyt.domain.usecase.RefreshStoriesUseCase;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -76,9 +75,8 @@ public class StoryListPresenterImpl implements StoryListPresenter
                             public void onError(Throwable e)
                             {
                                 Timber.e("Error while fetching event list for section = " + section);
-                                e.printStackTrace();
-                                state = StoryListState.error(section);
 
+                                state = StoryListState.loading(section);
                                 view.displayError();
                             }
 
@@ -125,9 +123,6 @@ public class StoryListPresenterImpl implements StoryListPresenter
                             public void onError(Throwable e)
                             {
                                 Timber.e("Error while refreshing event list for section = " + section);
-                                e.printStackTrace();
-                                state = StoryListState.error(section);
-
                                 view.displayError();
                             }
 

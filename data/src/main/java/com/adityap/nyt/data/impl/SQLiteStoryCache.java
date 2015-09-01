@@ -44,7 +44,10 @@ public class SQLiteStoryCache implements StoryCache
                     @Override
                     public void call(Subscriber<? super List<Story>> subscriber)
                     {
+                        long startTime = System.currentTimeMillis();
                         SQLiteDatabase db = databaseManager.openConnection();
+
+                        long connectionCreationTime = System.currentTimeMillis();
 
                         String[] projection = {SQLiteContract.Stories.COLUMN_CONTENT};
                         String selection = SQLiteContract.Stories.COLUMN_ID + " = ?";
@@ -70,8 +73,17 @@ public class SQLiteStoryCache implements StoryCache
                             subscriber.onNext(new ArrayList<Story>());
                         }
 
+                        long loadTime = System.currentTimeMillis();
+
                         cursor.close();
                         databaseManager.closeConnection();
+
+                        long endTime = System.currentTimeMillis();
+
+                        Timber.d("[TIME] Total = " + (endTime-startTime) + "ms");
+                        Timber.d("[TIME] Open Connection = " + (connectionCreationTime-startTime) + "ms");
+                        Timber.d("[TIME] Fetch data = " + (loadTime-connectionCreationTime) + "ms");
+                        Timber.d("[TIME] Close Connection = " + (endTime-loadTime) + "ms");
 
                         subscriber.onCompleted();
                     }
